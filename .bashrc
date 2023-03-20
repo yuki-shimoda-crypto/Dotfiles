@@ -271,7 +271,6 @@ case "$(uname)" in
 					alias cddow='cd ~/Downloads'
 					alias cdde='cd ~/Desktop'
 					alias cddes='cd ~/Desktop'
-					alias cdsync='cd /home/ubuntu/.local/share/Cryptomator/mnt/sync_mobile'
 						
 					# PATH pip
 					PATH="$PATH:/home/ubuntu/.local/bin"
@@ -284,7 +283,6 @@ case "$(uname)" in
 				alias cddow='cd ~/Downloads'
 				alias cdde='cd ~/Desktop'
 				alias cddes='cd ~/Desktop'
-				alias cdsync='cd /home/fedora/.local/share/Cryptomator/mnt/sync_mobile'
 				;;
 			# Other OS
 			*)
