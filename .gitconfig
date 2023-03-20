@@ -1,0 +1,7 @@
+[user]
+	name = yuki-shimoda-crypto
+	email = 77478109+yuki-shimoda-crypto@users.noreply.github.com
+
+[url "github:"]
+    InsteadOf = https://github.com/
+    InsteadOf = git@github.com:
