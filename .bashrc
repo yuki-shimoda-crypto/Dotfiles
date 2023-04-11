@@ -283,6 +283,7 @@ case "$(uname)" in
 				alias cddow='cd ~/Downloads'
 				alias cdde='cd ~/Desktop'
 				alias cddes='cd ~/Desktop'
+				PATH="$PATH:/home/fedora/.local/bin"
 				;;
 			# Other OS
 			*)
