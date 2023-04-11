@@ -6,4 +6,4 @@
     InsteadOf = https://github.com/
     InsteadOf = git@github.com:
 [commit]
-	template = /home/fedora/commit_template.txt
+	template = ~/commit_template.txt
