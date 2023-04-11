@@ -1,11 +1,13 @@
 #!/bin/bash
-ln -s $(pwd)/.bashrc ~/.bashrc
-ln -s $(pwd)/.gitconfig ~/.gitconfig
-ln -s $(pwd)/.vimrc ~/.vimrc
-ln -s $(pwd)/.zshrc ~/.zshrc
+ln -s $(pwd)/.aliases						~/.aliases
+ln -s $(pwd)/.bashrc						~/.bashrc
+ln -s $(pwd)/.gitconfig						~/.gitconfig
+ln -s $(pwd)/.vimrc							~/.vimrc
+ln -s $(pwd)/.zshrc							~/.zshrc
+ln -s $(pwd)/commit_template.txt			~/commit_template.txt
 
 mkdir -p ~/.ssh
-ln -s $(pwd)/.ssh/config ~/.ssh/config
+ln -s $(pwd)/.ssh/config					~/.ssh/config
 
 # make .bashrc.d
 mkdir -p ~/.bashrc.d
