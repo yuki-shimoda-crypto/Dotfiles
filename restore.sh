@@ -4,7 +4,6 @@ ln -s $(pwd)/.bashrc						~/.bashrc
 ln -s $(pwd)/.gitconfig						~/.gitconfig
 ln -s $(pwd)/.vimrc							~/.vimrc
 ln -s $(pwd)/.zshrc							~/.zshrc
-ln -s $(pwd)/commit_template.txt			~/commit_template.txt
 
 mkdir -p ~/.ssh
 ln -s $(pwd)/.ssh/config					~/.ssh/config
@@ -16,3 +15,8 @@ ln -s $(pwd)/.bashrc.d/fedora.bashrc		~/.bashrc.d/fedora.bashrc
 ln -s $(pwd)/.bashrc.d/mac.bashrc			~/.bashrc.d/mac.bashrc
 ln -s $(pwd)/.bashrc.d/ubuntu.bashrc		~/.bashrc.d/ubuntu.bashrc
 ln -s $(pwd)/.bashrc.d/wsl_ubuntu.bashrc	~/.bashrc.d/wsl_ubuntu.bashrc
+
+# make commit_template
+mkdir -p ~/commit_template
+ln -s $(pwd)/commit_template/commit_template_ja.txt			~/commit_template/commit_template_ja.txt
+ln -s $(pwd)/commit_template/commit_template_en.txt			~/commit_template/commit_template_en.txt

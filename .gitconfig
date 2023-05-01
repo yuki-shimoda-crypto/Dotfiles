@@ -6,4 +6,6 @@
     InsteadOf = https://github.com/
     InsteadOf = git@github.com:
 [commit]
-	template = ~/commit_template.txt
+	template = ~/commit_template/commit_template_en.txt
+[safe]
+	directory = /app
