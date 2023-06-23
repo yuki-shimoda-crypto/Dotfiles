@@ -80,6 +80,14 @@ alias grhh='git reset --hard'
 alias gsb='git status -sb'
 alias gss='git status -s'
 alias gst='git status'
+alias gsta='git stash push'
+alias gstaa='git stash apply'
+alias gstall='git stash --all'
+alias gstc='git stash clear'
+alias gstd='git stash drop'
+alias gstl='git stash list'
+alias gstp='git stash pop'
+alias gsts='git stash show --text'
 
 # ls
 alias ll='ls -alF'
@@ -108,6 +116,9 @@ alias py='python'
 
 # vim
 alias vimn='vim -u NONE -N'
+if [ "$(uname)" == "Linux" ] && [ -f /usr/bin/vimx ]; then
+	alias vim='/usr/bin/vimx'
+fi
 vack() {
     case $1 in
         i|install) git clone -- "$2" "$HOME/.vim/pack/vack/start/$(basename "$2")" ;;
