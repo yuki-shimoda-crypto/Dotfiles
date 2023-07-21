@@ -44,7 +44,7 @@ alias nh='norminette -R CheckDefine'
 # }
 
 # ランクとコンテストナンバーを指定する。ただし、ファイル名はabc<CONTEST_NUM>.cpp
-runabc() {
+r() {
     if [ $# -ne 2 ]; then
         echo "Usage: $0 <RANK> <CONTEST_NUM>"
         return 1
