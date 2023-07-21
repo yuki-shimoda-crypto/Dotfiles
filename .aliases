@@ -5,6 +5,116 @@ alias f='c_formatter_42'
 alias n='norminette -R CheckForbiddenSourceHeader'
 alias nh='norminette -R CheckDefine'
 
+# AtCoder
+# fileとURLを指定するver
+# runabc() {
+#     if [ $# -ne 2 ]; then
+#         echo "Usage: $0 <FILE> <URL>"
+#         return 1
+#     fi
+# 
+#     FILE=$1
+#     URL=$2
+# 	RESET="\033[0m"
+# 	RED="\033[31m"
+# 	GREEN="\033[32m"
+# 
+#     if ! g++ $FILE; then
+#         echo -e "${RED}Compilation failed${RESET}"
+#         return 1
+#     fi
+# 
+#     rm -rf test
+#     if ! oj d $URL; then
+#         echo -e "${RED}Failed to download test cases${RESET}"
+#         return 1
+#     fi
+# 
+#     if ! oj t; then
+#         echo -e "${RED}Test failed${RESET}"
+#         return 1
+#     fi
+# 
+#     if ! oj s $FILE --wait=0 --yes; then
+#         echo -e "${RED}Submission failed${RESET}"
+#         return 1
+#     fi
+# 
+#     echo -e "${GREEN}Submission successful${RESET}"
+# }
+
+# ランクとコンテストナンバーを指定する。ただし、ファイル名はabc<CONTEST_NUM>.cpp
+runabc() {
+    if [ $# -ne 2 ]; then
+        echo "Usage: $0 <RANK> <CONTEST_NUM>"
+        return 1
+    fi
+
+    # Rank should be a single lowercase letter
+    if [[ ! $1 =~ ^[a-f]$ ]]; then
+        echo "Error: RANK should be a single lowercase letter from a to f."
+        return 1
+    fi
+
+    # Contest number should be a positive integer
+    if [[ ! $2 =~ ^[0-9]+$ ]]; then
+        echo "Error: CONTEST_NUM should be a positive integer."
+        return 1
+    fi
+
+    URL="https://atcoder.jp/contests/abc${2}/tasks/abc${2}_${1}"
+    EDITORIAL_URL=${URL}/editorial
+    FILE=abc${2}.cpp
+    RESET="\033[0m"
+    RED="\033[31m"
+    GREEN="\033[32m"
+
+    if [ ! -f $FILE ]; then
+        echo -e "${RED}Error: File $FILE does not exist${RESET}"
+        return 1
+    fi
+
+    if ! g++ $FILE; then
+        echo -e "${RED}Compilation failed${RESET}"
+        return 1
+    fi
+
+    rm -rf test
+    if ! oj d $URL; then
+        echo -e "${RED}Failed to download test cases${RESET}"
+        return 1
+    fi
+
+    if ! oj t; then
+        echo -e "${RED}Test failed${RESET}"
+        return 1
+    fi
+
+    # Open editorial and handle possible failure
+    OS=`uname`
+    if [[ "$OS" == "Linux" ]]; then
+        if ! xdg-open ${EDITORIAL_URL} &> /dev/null; then
+            echo -e "${RED}Failed to open the URL in the browser${RESET}"
+            return 1
+        fi
+    elif [[ "$OS" == "Darwin" ]]; then
+        if ! open ${EDITORIAL_URL} &> /dev/null; then
+            echo -e "${RED}Failed to open the URL in the browser${RESET}"
+            return 1
+        fi
+    else
+        echo -e "${RED}Unsupported operating system${RESET}"
+        return 1
+    fi
+
+    if ! oj s $FILE --wait=0 --yes; then
+        echo -e "${RED}Submission failed${RESET}"
+        return 1
+    fi
+
+    echo -e "${GREEN}Submission successful${RESET}"
+}
+
 # c
 alias gccw='gcc -Wall -Wextra -Werror'
 
@@ -181,6 +291,9 @@ case "$(uname)" in
 	*)
 		;;
 esac
+
+__git_complete gco _git_checkout
+
 
 # 42alias
 # alias -='cd -'
