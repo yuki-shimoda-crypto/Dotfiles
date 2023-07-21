@@ -5,6 +5,11 @@
 [url "github:"]
     InsteadOf = https://github.com/
     InsteadOf = git@github.com:
+
+[url "gitlab:"]
+    InsteadOf = https://gitlab.com/
+    InsteadOf = git@gitlab.com:
+
 [commit]
 	template = ~/commit_template/commit_template_en.txt
 [safe]
