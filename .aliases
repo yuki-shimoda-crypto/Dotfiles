@@ -43,10 +43,10 @@ alias nh='norminette -R CheckDefine'
 #     echo -e "${GREEN}Submission successful${RESET}"
 # }
 
-# ランクとコンテストナンバーを指定する。ただし、ファイル名はabc<CONTEST_NUM>.cpp
-r() {
+# ランクとコンテストナンバーを指定する。ただし、ファイル名はabc<CONTEST_NUM>_<RANK>.cpp
+abc() {
     if [ $# -ne 2 ]; then
-        echo "Usage: $0 <RANK> <CONTEST_NUM>"
+        echo -e "Usage: $0 <RANK> <CONTEST_NUM>\nex: abc a 310"
         return 1
     fi
 
@@ -64,7 +64,7 @@ r() {
 
     URL="https://atcoder.jp/contests/abc${2}/tasks/abc${2}_${1}"
     EDITORIAL_URL=${URL}/editorial
-    FILE=abc${2}.cpp
+    FILE=abc${2}_${1}.cpp
     RESET="\033[0m"
     RED="\033[31m"
     GREEN="\033[32m"
