@@ -5,58 +5,23 @@ alias f='c_formatter_42'
 alias n='norminette -R CheckForbiddenSourceHeader'
 alias nh='norminette -R CheckDefine'
 
-# AtCoder
-# fileとURLを指定するver
-# runabc() {
-#     if [ $# -ne 2 ]; then
-#         echo "Usage: $0 <FILE> <URL>"
-#         return 1
-#     fi
-# 
-#     FILE=$1
-#     URL=$2
-# 	RESET="\033[0m"
-# 	RED="\033[31m"
-# 	GREEN="\033[32m"
-# 
-#     if ! g++ $FILE; then
-#         echo -e "${RED}Compilation failed${RESET}"
-#         return 1
-#     fi
-# 
-#     rm -rf test
-#     if ! oj d $URL; then
-#         echo -e "${RED}Failed to download test cases${RESET}"
-#         return 1
-#     fi
-# 
-#     if ! oj t; then
-#         echo -e "${RED}Test failed${RESET}"
-#         return 1
-#     fi
-# 
-#     if ! oj s $FILE --wait=0 --yes; then
-#         echo -e "${RED}Submission failed${RESET}"
-#         return 1
-#     fi
-# 
-#     echo -e "${GREEN}Submission successful${RESET}"
-# }
-
 # ランクとコンテストナンバーを指定する。ただし、ファイル名はabc<CONTEST_NUM>_<RANK>.cpp
 abc() {
+    # Ensure two arguments are provided
     if [ $# -ne 2 ]; then
-        echo -e "Usage: $0 <RANK> <CONTEST_NUM>\nex: abc a 310"
+        echo "Usage: abc <RANK> <CONTEST_NUM>"
+        echo "Example:"
+        echo "  $ abc a 300"
         return 1
     fi
 
-    # Rank should be a single lowercase letter
-    if [[ ! $1 =~ ^[a-f]$ ]]; then
-        echo "Error: RANK should be a single lowercase letter from a to f."
+    # Validate RANK as a lowercase letter between a to h
+    if [[ ! $1 =~ ^[a-h]$ ]]; then
+        echo "Error: RANK should be a lowercase letter between a to h."
         return 1
     fi
 
-    # Contest number should be a positive integer
+    # Validate CONTEST_NUM as a positive integer
     if [[ ! $2 =~ ^[0-9]+$ ]]; then
         echo "Error: CONTEST_NUM should be a positive integer."
         return 1
@@ -64,59 +29,91 @@ abc() {
 
     URL="https://atcoder.jp/contests/abc${2}/tasks/abc${2}_${1}"
     EDITORIAL_URL=${URL}/editorial
-    FILE=abc${2}_${1}.cpp
+    FILE=abc${2}/abc${2}_${1}.cpp
     RESET="\033[0m"
     RED="\033[31m"
     GREEN="\033[32m"
 
+    # Check if the file exists
     if [ ! -f $FILE ]; then
         echo -e "${RED}Error: File $FILE does not exist${RESET}"
+        cd "$CURRENT_DIR"
         return 1
     fi
 
+    # Compilation
     if ! g++ $FILE; then
         echo -e "${RED}Compilation failed${RESET}"
+        cd "$CURRENT_DIR"
         return 1
     fi
 
+    # Download test cases
     rm -rf test
     if ! oj d $URL; then
         echo -e "${RED}Failed to download test cases${RESET}"
+        cd "$CURRENT_DIR"
         return 1
     fi
 
+    # Test the solution
     if ! oj t; then
         echo -e "${RED}Test failed${RESET}"
+        cd "$CURRENT_DIR"
         return 1
     fi
 
-    # Open editorial and handle possible failure
+    # Open editorial based on the OS
     OS=`uname`
     if [[ "$OS" == "Linux" ]]; then
         if ! xdg-open ${EDITORIAL_URL} &> /dev/null; then
             echo -e "${RED}Failed to open the URL in the browser${RESET}"
+            cd "$CURRENT_DIR"
             return 1
         fi
     elif [[ "$OS" == "Darwin" ]]; then
         if ! open ${EDITORIAL_URL} &> /dev/null; then
             echo -e "${RED}Failed to open the URL in the browser${RESET}"
+            cd "$CURRENT_DIR"
             return 1
         fi
     else
         echo -e "${RED}Unsupported operating system${RESET}"
+        cd "$CURRENT_DIR"
         return 1
     fi
 
-    if ! oj s $FILE --wait=0 --yes; then
+    # Submit the solution
+    if ! oj s $URL $FILE --wait=0 --yes; then
         echo -e "${RED}Submission failed${RESET}"
+        cd "$CURRENT_DIR"
         return 1
     fi
 
     echo -e "${GREEN}Submission successful${RESET}"
 }
 
+atmake() {
+    # 引数がない場合のヘルプメッセージを表示
+    if [ -z "$1" ]; then
+        echo "Usage: atmake <directory_name>"
+        echo "Example:"
+        echo "  $ atmake abc300"
+        return 1
+    fi
+
+    # ディレクトリを作成（存在すればそのまま）
+    mkdir -p "$1"
+
+    # a から g までのファイルと、拡張用のファイルを生成
+    touch "${1}/${1}"_{a..h}.cpp
+}
+
 # c
 alias gccw='gcc -Wall -Wextra -Werror'
+
+# cpp
+alias g++w='g++ -Wall -Wextra -Werror -std=c++98'
 
 # dir
 alias ..='cd ..'
@@ -291,6 +288,9 @@ case "$(uname)" in
 	*)
 		;;
 esac
+
+# wget
+alias wgetfullpage='wget --page-requisites --convert-links --span-hosts --no-parent --timestamping --directory-prefix=downloaded_page --adjust-extension'
 
 __git_complete gco _git_checkout
 
