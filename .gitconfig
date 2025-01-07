@@ -1,6 +1,7 @@
 [user]
-	name = yuki-shimoda
+	name = Yuki Shimoda
 	email = yuki-shimoda@protonmail.com
+	signingKey = 98944B974CCC1C87
 
 [url "github:"]
     InsteadOf = https://github.com/
@@ -11,6 +12,13 @@
     InsteadOf = git@gitlab.com:
 
 [commit]
-	template = ~/commit_template/commit_template_en.txt
+	gpgSign = true
 [safe]
 	directory = /app
+[init]
+	defaultBranch = main
+[filter "lfs"]
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f

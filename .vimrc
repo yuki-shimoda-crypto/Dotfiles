@@ -5,12 +5,10 @@ set relativenumber
 set tabstop=2
 set shiftwidth=2
 set expandtab
-set autoindent
+"set autoindent
 set cursorline
 syntax enable
 set helplang=ja,en
-
-inoreabbrev sGuard #ifndef <C-R>=toupper(expand("%:t:r"))<CR>_HPP <CR>#define <C-R>=toupper(expand("%:t:r"))<CR>_HPP<CR><CR>#endif // <C-R>=toupper(expand("%:t:r"))<UP><Esc>
 
 " Clang-Format
 if has('python')
